@@ -23,26 +23,27 @@ void do_trail(int total)
 {
   int t;
 
-  printf("%d:\n", total);
   fprintf(stderr, "%d points:\n", total);
+  printf("%d:\n", total);
   for(t = 0; t < NTRAIL; ++t)
   {
     printf("%+25.17e\n", do_int(total));
     if((t + 1) % (NTRAIL / 10) == 0)
       fprintf(stderr, "%4d / %d\n", t + 1, NTRAIL);
   }
+  fprintf(stderr, "\n");
+  printf("\n");
 }
 
 double do_int(int total)
 {
-  double x, y;
-  int p, n = 0;
+  double x, y = 0.0, w = 1.0 / total;
+  int p;
 
   for(p = 0; p < total; ++p)
   {
     x = drand48();
-    y = drand48();
-    n += (y < exp(-100.0 * pow(x - 0.5, 2)));
+    y += w * exp(-100.0 * pow(x - 0.5, 2));
   }
-  return (double)n / total;
+  return y;
 }
