@@ -5,11 +5,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import norm
 
-mu = 0.1772453850902791
-sigma = np.sqrt(0.12533141373155 - np.square(mu))
+mu = 0.1772453850902791**9
+sigma = np.sqrt(0.12533141373155**9 - np.square(mu))
 
 data = {}
-with open('1d.out') as f:
+with open('9d.out') as f:
     while True:
         n = f.readline()
         if not n:
@@ -34,7 +34,7 @@ for (i, (n, d)) in enumerate(data.items(), 1):
     print(f'{n:8}\t{mean}\t{std}\t{mean - mu}\t{sigma / np.sqrt(n)}', flush=True, file=sys.stderr)
     n, bins, patches = plt.hist(d, 50, density=True, histtype='step', label=f'{n} points')
     pdf = norm.pdf(bins, mean, std)
-    plt.plot(bins, pdf, label=f'$\\mu = {mean:.6f},\\ \\sigma = {std:.6f}$')
+    plt.plot(bins, pdf, label=f'$\\mu = ${mean:.4e}$,\\ \\sigma = ${std:.4e}')
     plt.legend(loc='upper right')
 plt.tight_layout()
 plt.savefig(__file__ + '.pdf')
