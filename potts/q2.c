@@ -116,7 +116,7 @@ static void lshow(int n, int L[n][n], int E)
 }
 
 __attribute__((used))
-static void test(void)
+static void ltest(void)
 {
   int q = 2;
   int n = 4;

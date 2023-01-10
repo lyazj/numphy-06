@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+attrs = {
+    '$T$': 0,
+    '$E$': 1,
+    '$C$': 2,
+    '$M$': 3,
+    r'$\mathrm{d} M/\mathrm{d} T$': 4,
+}
+
+data = {}
+with open('q3.out') as f:
+    while True:
+        n = f.readline()
+        if not n:
+            break
+        n = int(n)
+        f.readline()
+        d = []
+        for line in f:
+            line = line.strip()
+            if not line:
+                break
+            d.append(line.split())
+        data[n] = np.array(d, dtype='float64')
+print(data)
+
+plt.figure(1, (12, 8))
+for attr, i in attrs.items():
+    if i == 0:
+        continue
+    plt.subplot(2, 2, i)
+    if attr == '$E$':
+        plt.yscale('linear')
+    else:
+        plt.yscale('symlog')
+    plt.xlabel('$T$')
+    plt.ylabel(attr)
+    for n, d in data.items():
+        plt.plot(d[:,0], d[:,i], label=f'$n = {n}$')
+    plt.legend(loc='lower right')
+plt.tight_layout()
+plt.savefig(__file__ + '.pdf')

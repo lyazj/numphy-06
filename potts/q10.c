@@ -116,7 +116,7 @@ static void lshow(int n, int L[n][n], int E)
 }
 
 __attribute__((used))
-static void test(void)
+static void ltest(void)
 {
   int q = 2;
   int n = 4;
@@ -155,14 +155,14 @@ static void lproc(int q, int n, double TL, double TH, int NT, int cycles)
   T0 = TL;
   lsim(q, n, L, &E, &M, T0, cycles, &E0, &M0);
   printf("%d\n", n);
-  printf("%16s%16s%16s%16s%16s\n", "T", "E", "C", "M", "m");
+  printf("%16s\t%16s\t%16s\t%16s\t%16s\n", "T", "E", "C", "M", "m");
   for(IT = 1; IT <= NT + 1; ++IT)
   {
     T1 = TL + (TH - TL) * IT / NT;
     lsim(q, n, L, &E, &M, T1, cycles, &E1, &M1);
     C = (E1 - E0) / (T1 - T0);
     m = (M1 - M0) / (T1 - T0);
-    printf("%16lf%16lf%16lf%16lf%16lf\n", T0, E0, C, M0, m);
+    printf("%16lf\t%16lf\t%16lf\t%16lf\t%16lf\n", T0, E0, C, M0, m);
     T0 = T1;
     E0 = E1;
     M0 = M1;
@@ -172,8 +172,14 @@ static void lproc(int q, int n, double TL, double TH, int NT, int cycles)
   printf("\n");
 }
 
+#include <sys/resource.h>
+#include <err.h>
+
 int main(void)
 {
-  lproc(10, 100, 0.5, 1.5, 10, 10000000);
+  struct rlimit rlim = {2048 * 2048 * sizeof(int), 2048 * 2048 * sizeof(int)};
+  if(setrlimit(RLIMIT_STACK, &rlim))
+    err(1, "setrlimit");
+  lproc(6, 2000, 0.7, 1.1, 100, 10000000);
   return 0;
 }

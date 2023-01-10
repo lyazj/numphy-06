@@ -23,7 +23,7 @@ with open('9d.out') as f:
             d.append(l)
         data[n] = np.array(d, dtype='float64')
 
-plt.figure(1, (18, 9))
+plt.figure(1, (12, 6))
 for (i, (n, d)) in enumerate(data.items(), 1):
     plt.subplot(2, 3, i)
     plt.xlabel('integral result')
