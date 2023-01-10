@@ -172,14 +172,8 @@ static void lproc(int q, int n, double TL, double TH, int NT, int cycles)
   printf("\n");
 }
 
-#include <sys/resource.h>
-#include <err.h>
-
 int main(void)
 {
-  struct rlimit rlim = {2048 * 2048 * sizeof(int), 2048 * 2048 * sizeof(int)};
-  if(setrlimit(RLIMIT_STACK, &rlim))
-    err(1, "setrlimit");
-  lproc(6, 2000, 0.7, 1.1, 100, 10000000);
+  lproc(10, 200, 0.2, 1.2, 200, 40000000);
   return 0;
 }

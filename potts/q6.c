@@ -174,6 +174,6 @@ static void lproc(int q, int n, double TL, double TH, int NT, int cycles)
 
 int main(void)
 {
-  lproc(6, 1000, 0.7, 1.1, 100, 10000000);
+  lproc(6, 200, 0.2, 1.2, 200, 40000000);
   return 0;
 }

@@ -33,10 +33,7 @@ for attr, i in attrs.items():
     if i == 0:
         continue
     plt.subplot(2, 2, i)
-    if attr == '$E$':
-        plt.yscale('linear')
-    else:
-        plt.yscale('symlog')
+    plt.yscale('linear')
     plt.xlabel('$T$')
     plt.ylabel(attr)
     for n, d in data.items():
